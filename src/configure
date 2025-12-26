@@ -1289,7 +1289,11 @@ or try another math library, e.g. --mathlib=OPENBLAS (Kaldi may be slower)."
     # how long ago the dependency was dropped.
     if $static_math; then
       echo "Configuring static OpenBlas since --static-math=yes"
-      OPENBLASLIBS="-L$OPENBLASLIBDIR -l:libopenblas.a -lgfortran"
+      OPENBLASLIBS="-L$OPENBLASLIBDIR -l:libopenblas.a"
+      # No Fortran for OpenBLAS
+      if [[ "$HOST" != WASM ]]; then
+        OPENBLASLIBS+=" -lgfortran"
+      fi
     else
       echo "Configuring dynamically loaded OpenBlas since --static-math=no (the default)"
       OPENBLASLIBS="-L$OPENBLASLIBDIR -lopenblas -lgfortran -Wl,-rpath=$OPENBLASLIBDIR"
