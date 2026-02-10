@@ -101,7 +101,6 @@ BatchedIvectorExtractorCuda::~BatchedIvectorExtractorCuda() {
 }
 
 void BatchedIvectorExtractorCuda::Read() {
-
   // Pick gmm values
   ubm_gconsts_.Resize(info_.diag_ubm.NumGauss());
   ubm_gconsts_.CopyFromVec(info_.diag_ubm.gconsts());
